@@ -38,6 +38,10 @@ if (MSVC)
                                COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS")
 endif ()
 
+set (PKG_CONFIG_FILE "${PROJECT_BINARY_DIR}/minizip.pc")
+configure_file (minizip.pc.in ${PKG_CONFIG_FILE} @ONLY)
+
+install (FILES ${PKG_CONFIG_FILE} DESTINATION $ENV{PKG_CONFIG_PATH})
 install (FILES ${PUBLIC_HEADERS} DESTINATION include)
 install (TARGETS minizip DESTINATION lib)
 
