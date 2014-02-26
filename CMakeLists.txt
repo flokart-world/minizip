@@ -3,6 +3,7 @@
 
 cmake_minimum_required (VERSION 2.8.12)
 project (minizip)
+find_package (CMakeSupportPrologue REQUIRED)
 
 if (NOT ZLIB_FOUND)
   find_package (ZLib REQUIRED)
@@ -38,10 +39,9 @@ if (MSVC)
                                COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS")
 endif ()
 
-set (PKG_CONFIG_FILE "${PROJECT_BINARY_DIR}/minizip.pc")
-configure_file (minizip.pc.in ${PKG_CONFIG_FILE} @ONLY)
+CMS_INSTALL_MODULE(MiniZip)
+CMS_INSTALL_PACKAGE(minizip)
 
-install (FILES ${PKG_CONFIG_FILE} DESTINATION $ENV{PKG_CONFIG_PATH})
 install (FILES ${PUBLIC_HEADERS} DESTINATION include)
 install (TARGETS minizip DESTINATION lib)
 
