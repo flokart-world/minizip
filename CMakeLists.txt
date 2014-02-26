@@ -1,4 +1,4 @@
-# Copyright (c) 2014 Flokart World Co., Inc.
+# Copyright (c) 2014 Flokart World, Inc.
 # All rights reserved.
 
 cmake_minimum_required (VERSION 2.8.12)
