@@ -3,7 +3,7 @@
 
 cmake_minimum_required (VERSION 2.8.12)
 project (minizip)
-find_package (CMakeSupportPrologue REQUIRED)
+find_package (CMakeSupports REQUIRED)
 
 if (NOT ZLIB_FOUND)
   find_package (ZLib REQUIRED)
@@ -40,7 +40,7 @@ if (MSVC)
 endif ()
 
 CMS_INSTALL_MODULE(MiniZip)
-CMS_INSTALL_PACKAGE(minizip)
+CMS_INSTALL_DOTPC(minizip)
 
 install (FILES ${PUBLIC_HEADERS} DESTINATION include)
 install (TARGETS minizip DESTINATION lib)
