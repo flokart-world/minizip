@@ -5,48 +5,31 @@ cmake_minimum_required (VERSION 2.8.12)
 project (minizip)
 find_package (CMakeSupports REQUIRED)
 
-if (NOT ZLIB_FOUND)
-  find_package (ZLib REQUIRED)
-endif ()
+CMS_PROJECT_VERSION(1.1)
+CMS_PROJECT_DESCRIPTION(MiniZip)
+CMS_PROJECT_VAR_PREFIX(MINIZIP)
 
-set (CURRENT_TARGET minizip)
+CMS_IMPORT_MODULE(ZLIB NAME ZLib PACKAGE zlib REQUIRED)
+
+CMS_INSTALL_LIBRARY_PACKAGE()
+CMS_INSTALL_MODULE(MiniZip)
+
+CMS_BEGIN_LIBRARY_C(minizip)
+
 set (PUBLIC_HEADERS ioapi.h mztools.h unzip.h zip.h)
-set (INTERNAL_FILES crypt.h ioapi.c mztools.c unzip.c zip.c)
 
 if (WIN32)
   list (APPEND PUBLIC_HEADERS iowin32.h)
-  list (APPEND INTERNAL_FILES iowin32.c)
+  CMS_ADD_SOURCE_FILES(iowin32.c)
 endif ()
 
-include_directories (${ZLIB_INCLUDE_DIRS})
-
-add_library (${CURRENT_TARGET} ${INTERNAL_FILES} ${PUBLIC_HEADERS})
-set_target_properties (${CURRENT_TARGET} PROPERTIES
-                       OUTPUT_NAME_DEBUG "minizipd")
+CMS_ADD_SOURCE_FILES(crypt.h ioapi.c mztools.c unzip.c zip.c)
+CMS_ADD_LIBRARY_HEADERS(${PUBLIC_HEADERS})
 
 if (MSVC)
-  target_compile_options(${CURRENT_TARGET} PUBLIC
-      $<$<CONFIG:MinSizeRel>:/Os>)
-  target_compile_options(${CURRENT_TARGET} PUBLIC
-      $<$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>>:/Oi /Ot>)
-  target_compile_options(${CURRENT_TARGET} PUBLIC
-      $<$<OR:$<CONFIG:MinSizeRel>,$<CONFIG:Release>>:/Oy>)
-  target_compile_options(${CURRENT_TARGET} PUBLIC
-      $<$<NOT:$<CONFIG:Debug>>:/GL /GS->)
-  target_compile_options(${CURRENT_TARGET} PUBLIC /fp:fast)
-
-  set_source_files_properties (FILES mztools.c PROPERTIES
-                               COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS")
+  CMS_DISABLE_MSVC_WARNINGS(4100 4127 4131 4189 4244)
+  CMS_SOURCE_FILES_COMPILE_DEFINITIONS(mztools.c DEFINITIONS
+                                       "_CRT_SECURE_NO_WARNINGS")
 endif ()
 
-CMS_INSTALL_MODULE(MiniZip)
-CMS_INSTALL_DOTPC(minizip)
-
-install (FILES ${PUBLIC_HEADERS} DESTINATION include)
-install (TARGETS minizip DESTINATION lib)
-
-set (MINIZIP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}"
-     CACHE PATH "" FORCE)
-set (MINIZIP_INCLUDE_DIRS ${ZLIB_INCLUDE_DIRS} ${MINIZIP_INCLUDE_DIR}
-     CACHE INTERNAL "" FORCE)
-mark_as_advanced (MINIZIP_INCLUDE_DIR)
+CMS_END_LIBRARY()
