@@ -3,7 +3,7 @@
 
 cmake_minimum_required (VERSION 2.8.12)
 project (minizip)
-find_package (CMakeSupports REQUIRED)
+find_package (CMakeSupports 0.0.2 REQUIRED)
 
 CMS_PROJECT_VERSION(1.1)
 CMS_PROJECT_DESCRIPTION(MiniZip)
@@ -24,7 +24,7 @@ if (WIN32)
 endif ()
 
 CMS_ADD_SOURCE_FILES(crypt.h ioapi.c mztools.c unzip.c zip.c)
-CMS_ADD_LIBRARY_HEADERS(${PUBLIC_HEADERS})
+CMS_LIBRARY_HEADERS(${PUBLIC_HEADERS})
 
 if (MSVC)
   CMS_DISABLE_MSVC_WARNINGS(4100 4127 4131 4189 4244)
