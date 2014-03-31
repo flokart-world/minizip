@@ -3,16 +3,13 @@
 
 cmake_minimum_required (VERSION 2.8.12)
 project (minizip)
-find_package (CMakeSupports 0.0.2 REQUIRED)
+find_package (CMakeSupports 0.0.3 REQUIRED)
 
 CMS_PROJECT_VERSION(1.1)
 CMS_PROJECT_DESCRIPTION(MiniZip)
 CMS_PROJECT_VAR_PREFIX(MINIZIP)
 
 CMS_IMPORT_MODULE(ZLIB NAME ZLib PACKAGE zlib REQUIRED)
-
-CMS_INSTALL_LIBRARY_PACKAGE()
-CMS_INSTALL_MODULE(MiniZip)
 
 CMS_BEGIN_LIBRARY_C(minizip)
 
@@ -33,3 +30,5 @@ if (MSVC)
 endif ()
 
 CMS_END_LIBRARY()
+
+CMS_INSTALL_PACKAGE(MiniZip)
