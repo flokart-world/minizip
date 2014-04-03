@@ -17,6 +17,8 @@ CMS_BEGIN_LIBRARY_C(minizip)
   if (WIN32)
     list (APPEND PUBLIC_HEADERS iowin32.h)
     CMS_ADD_SOURCE_FILES(iowin32.c)
+  elseif (APPLE AND DARWIN_MAJOR_VERSION GREATER 9)
+    CMS_ADD_DEFINITIONS(USE_FILE32API)
   endif ()
 
   CMS_ADD_SOURCE_FILES(crypt.h ioapi.c mztools.c unzip.c zip.c)
