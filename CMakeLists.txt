@@ -12,7 +12,7 @@ CMS_BEGIN(Module MiniZip)
   CMS_BEGIN(LibraryC minizip)
     CMS_SET_PROPERTY(Version 1.1)
 
-    CMS_IMPORT_PACKAGE(ZLib PREFIX ZLIB REQUIRED)
+    CMS_IMPORT_PACKAGE(ZLIB PREFIX ZLIB REQUIRED)
 
     CMS_ADD_PUBLIC_HEADERS(ioapi.h mztools.h unzip.h zip.h)
     CMS_ADD_SOURCE_FILES(crypt.h ioapi.c mztools.c unzip.c zip.c)
