@@ -29,6 +29,11 @@ CMS_BEGIN(Module MiniZip)
       CMS_APPEND_TO_SOURCE_FILE_PROPERTY(mztools.c
                                          CompileDefinitions
                                          _CRT_SECURE_NO_WARNINGS)
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+      foreach (_src unzip.c zip.c)
+        CMS_APPEND_TO_SOURCE_FILE_PROPERTY("${_src}" CompileOptions
+                                           -Wno-parentheses-equality)
+      endforeach ()
     endif ()
   CMS_END()
 CMS_END()
