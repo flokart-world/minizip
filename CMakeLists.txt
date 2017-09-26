@@ -1,4 +1,4 @@
-# Copyright (c) 2014 Flokart World, Inc.
+# Copyright (c) 2014-2017 Flokart World, Inc.
 # All rights reserved.
 
 cmake_minimum_required (VERSION 3.0.0)
@@ -25,7 +25,7 @@ CMS_BEGIN(Module MiniZip)
     endif ()
 
     if (MSVC)
-      CMS_DISABLE_MSVC_WARNINGS(4100 4127 4131 4189 4244)
+      CMS_DISABLE_MSVC_WARNINGS(4057 4100 4127 4131 4189 4244 4456)
       CMS_APPEND_TO_SOURCE_FILE_PROPERTY(mztools.c
                                          CompileDefinitions
                                          _CRT_SECURE_NO_WARNINGS)
