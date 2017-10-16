@@ -27,7 +27,9 @@
   // But might need better if/def to select just the platforms that needs them.
 
         #ifndef __USE_FILE_OFFSET64
+            #if !defined(__ANDROID__) || (__ANDROID_API__ >= 24)
                 #define __USE_FILE_OFFSET64
+            #endif
         #endif
         #ifndef __USE_LARGEFILE64
                 #define __USE_LARGEFILE64
@@ -49,6 +51,11 @@
 #define ftello64 ftell
 #define fseeko64 fseek
 #else
+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__APPLE__) || defined(__ANDROID__)
+ #define fopen64 fopen
+ #define ftello64 ftello
+ #define fseeko64 fseeko
+#endif
 #ifdef _MSC_VER
  #define fopen64 fopen
  #if (_MSC_VER >= 1400) && (!(defined(NO_MSCVER_FILE64_FUNC)))
